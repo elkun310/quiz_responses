@@ -1,0 +1,233 @@
+{
+    "projectName": "Random Quiz Questions Web App",
+    "prdVersion": "1.0",
+    "generatedDate": "2025-11-17",
+    "tasks": [
+        {
+            "id": "TASK-001",
+            "title": "Set up project structure and dependencies",
+            "description": "Initialize project with HTML, CSS, JavaScript and necessary dependencies. Set up package.json with required libraries.",
+            "priority": "high",
+            "status": "completed",
+            "category": "setup",
+            "estimatedHours": 2,
+            "acceptanceCriteria": [
+                "Project structure is organized",
+                "package.json is configured",
+                "Build tools are set up"
+            ]
+        },
+        {
+            "id": "TASK-002",
+            "title": "Create landing page with personal info form",
+            "description": "Build the landing page with form fields for Name, Phone Number, and Agent Name. Include Start Quiz button.",
+            "priority": "high",
+            "status": "completed",
+            "category": "frontend",
+            "estimatedHours": 4,
+            "acceptanceCriteria": [
+                "Form has Name, Phone Number, and Agent Name fields",
+                "Form validation ensures all fields are completed",
+                "Start Quiz button is functional",
+                "Page is responsive on desktop and mobile"
+            ]
+        },
+        {
+            "id": "TASK-003",
+            "title": "Create quiz question database",
+            "description": "Set up master question set with 51 MCQs and 9 essay questions. Each question should have an ID, text, type, and score value.",
+            "priority": "high",
+            "status": "completed",
+            "category": "backend",
+            "estimatedHours": 3,
+            "acceptanceCriteria": [
+                "51 MCQs are defined with correct answers",
+                "9 essay questions are defined",
+                "Each question has score value assigned",
+                "Questions are stored in accessible format"
+            ]
+        },
+        {
+            "id": "TASK-004",
+            "title": "Implement question randomization logic",
+            "description": "Create logic to randomly select 28 MCQs and always include 2 essay questions at the end for each user.",
+            "priority": "high",
+            "status": "completed",
+            "category": "frontend",
+            "estimatedHours": 3,
+            "acceptanceCriteria": [
+                "28 MCQs are randomly selected per user",
+                "2 essay questions are always at the end",
+                "Total of 30 questions per quiz",
+                "Randomization is truly random"
+            ]
+        },
+        {
+            "id": "TASK-005",
+            "title": "Build quiz page UI with question display",
+            "description": "Create quiz page that displays questions one by one or all at once. Include answer selection interface for MCQs and text input for essays.",
+            "priority": "high",
+            "status": "completed",
+            "category": "frontend",
+            "estimatedHours": 5,
+            "acceptanceCriteria": [
+                "Questions display correctly",
+                "MCQ options are selectable",
+                "Essay questions have text input fields",
+                "UI is responsive on desktop and mobile"
+            ]
+        },
+        {
+            "id": "TASK-006",
+            "title": "Implement countdown timer (20 minutes)",
+            "description": "Create a countdown timer that starts at 20 minutes and prevents quiz submission after time expires.",
+            "priority": "high",
+            "status": "completed",
+            "category": "frontend",
+            "estimatedHours": 2,
+            "acceptanceCriteria": [
+                "Timer counts down from 20 minutes",
+                "Timer displays remaining time clearly",
+                "Submission is prevented after time expires",
+                "User is notified when time is up"
+            ]
+        },
+        {
+            "id": "TASK-007",
+            "title": "Implement score calculation logic",
+            "description": "Create logic to calculate total score based on user answers. MCQs = 1 point each, Essay questions = 5 points each.",
+            "priority": "high",
+            "status": "completed",
+            "category": "backend",
+            "estimatedHours": 2,
+            "acceptanceCriteria": [
+                "MCQ answers are scored at 1 point each",
+                "Essay answers are scored at 5 points each",
+                "Total score is calculated correctly",
+                "Maximum score is 38 points"
+            ]
+        },
+        {
+            "id": "TASK-008",
+            "title": "Set up Google Sheets integration",
+            "description": "Configure Google Apps Script or serverless function to receive quiz data and save to Google Sheet. Set up authentication and API keys.",
+            "priority": "high",
+            "status": "completed",
+            "category": "backend",
+            "estimatedHours": 4,
+            "acceptanceCriteria": [
+                "Google Sheets API is configured",
+                "Authentication is set up",
+                "API endpoint is created",
+                "Connection is tested"
+            ]
+        },
+        {
+            "id": "TASK-009",
+            "title": "Create Google Sheet structure",
+            "description": "Set up Google Sheet with columns for Timestamp, Name, Phone, Agent Name, Q1-Q30 Answers, and Total Score.",
+            "priority": "high",
+            "status": "completed",
+            "category": "backend",
+            "estimatedHours": 1,
+            "acceptanceCriteria": [
+                "Sheet has all required columns",
+                "Column headers are clear",
+                "Sheet is properly formatted"
+            ]
+        },
+        {
+            "id": "TASK-010",
+            "title": "Implement quiz submission functionality",
+            "description": "Create submit button and logic to send quiz data (user info, answers, score) to backend/Google Sheets.",
+            "priority": "high",
+            "status": "completed",
+            "category": "frontend",
+            "estimatedHours": 3,
+            "acceptanceCriteria": [
+                "Submit button is functional",
+                "Quiz data is collected correctly",
+                "Data is sent to backend",
+                "User receives confirmation"
+            ]
+        },
+        {
+            "id": "TASK-011",
+            "title": "Create results page with score summary",
+            "description": "Build results page that displays only the total score summary. Do not show individual answers or correct answers.",
+            "priority": "high",
+            "status": "completed",
+            "category": "frontend",
+            "estimatedHours": 2,
+            "acceptanceCriteria": [
+                "Results page displays total score",
+                "Individual answers are not shown",
+                "Correct answers are not revealed",
+                "Page is responsive"
+            ]
+        },
+        {
+            "id": "TASK-012",
+            "title": "Implement data persistence to Google Sheets",
+            "description": "Create backend function to receive quiz data and save it to Google Sheet with timestamp and all required fields.",
+            "priority": "high",
+            "status": "completed",
+            "category": "backend",
+            "estimatedHours": 3,
+            "acceptanceCriteria": [
+                "Data is saved to Google Sheet",
+                "Timestamp is recorded",
+                "All user info is saved",
+                "All answers are saved",
+                "Total score is saved"
+            ]
+        },
+        {
+            "id": "TASK-013",
+            "title": "Ensure responsive design for mobile and desktop",
+            "description": "Test and optimize UI for desktop and mobile devices. Ensure all elements are accessible and functional on different screen sizes.",
+            "priority": "medium",
+            "status": "completed",
+            "category": "frontend",
+            "estimatedHours": 3,
+            "acceptanceCriteria": [
+                "UI is responsive on mobile (< 768px)",
+                "UI is responsive on tablet (768px - 1024px)",
+                "UI is responsive on desktop (> 1024px)",
+                "All buttons and inputs are accessible"
+            ]
+        },
+        {
+            "id": "TASK-014",
+            "title": "Implement answer hiding mechanism",
+            "description": "Ensure users cannot view correct answers or their individual answers after submission. Only show total score.",
+            "priority": "high",
+            "status": "completed",
+            "category": "frontend",
+            "estimatedHours": 2,
+            "acceptanceCriteria": [
+                "Correct answers are not accessible to users",
+                "Individual answers are not displayed",
+                "Only total score is shown",
+                "Security is maintained"
+            ]
+        },
+        {
+            "id": "TASK-015",
+            "title": "Testing and QA",
+            "description": "Perform comprehensive testing including functionality, responsiveness, data accuracy, and edge cases.",
+            "priority": "high",
+            "status": "completed",
+            "category": "testing",
+            "estimatedHours": 5,
+            "acceptanceCriteria": [
+                "All features work as specified",
+                "Quiz generates 30 random questions correctly",
+                "Timer works and prevents late submission",
+                "Data is saved correctly to Google Sheet",
+                "UI is responsive on all devices",
+                "No answers are revealed to users"
+            ]
+        }
+    ]
+}

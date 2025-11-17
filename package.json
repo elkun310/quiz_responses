@@ -1,0 +1,26 @@
+{
+    "name": "random-quiz-web-app",
+    "version": "1.0.0",
+    "description": "Random Quiz Questions Web App with Google Sheets integration",
+    "main": "index.js",
+    "scripts": {
+        "start": "http-server -p 8080",
+        "dev": "http-server -p 8080 -c-1",
+        "build": "echo 'No build step required for static site'",
+        "test": "echo 'Add tests here'"
+    },
+    "keywords": [
+        "quiz",
+        "random",
+        "google-sheets",
+        "web-app"
+    ],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "http-server": "^14.1.1"
+    },
+    "dependencies": {
+        "axios": "^1.6.0"
+    }
+}
