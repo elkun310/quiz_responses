@@ -11,6 +11,10 @@ class QuizApp {
         this.timeRemaining = 20 * 60; // 20 minutes in seconds
         this.quizStarted = false;
 
+        // Language and theme settings
+        this.language = localStorage.getItem('quizLanguage') || 'en'; // 'en' or 'ja'
+        this.darkMode = localStorage.getItem('quizDarkMode') === 'true';
+
         // Initialize API client
         this.api = new QuizAPI({
             apiEndpoint: 'https://script.google.com/macros/s/AKfycbytWIQdwNmI6t7ELybbvUEZ1hGXPXLkdOaWxyasp5-UgzhmX61aIceX9n-08JZNwJDs/exec'
@@ -20,8 +24,96 @@ class QuizApp {
     }
 
     init() {
+        this.applyTheme();
         this.render();
         this.attachEventListeners();
+    }
+
+    // Translations
+    getTranslation(key) {
+        const translations = {
+            en: {
+                title: '📝 Random Quiz Questions',
+                description: "Test your knowledge with our randomized quiz. You'll have 20 minutes to answer 30 questions.",
+                fullName: 'Full Name',
+                phone: 'Phone Number',
+                agent: 'Agent Name',
+                startQuiz: 'Start Quiz',
+                quizInProgress: 'Quiz in Progress',
+                questionOf: 'Question',
+                of: 'of',
+                multipleChoice: 'Multiple Choice',
+                essay: 'Essay',
+                previous: '← Previous',
+                next: 'Next →',
+                submitQuiz: 'Submit Quiz',
+                quizComplete: 'Quiz Complete!',
+                yourScore: 'Your Score',
+                retakeQuiz: 'Retake Quiz',
+                excellent: '🎉 Excellent! You did great!',
+                good: '👍 Good job! Keep practicing!',
+                niceTry: '📚 Nice try! Review the material and try again.',
+                keepLearning: "💪 Keep learning! You'll do better next time.",
+                required: '*',
+                nameRequired: 'Name is required',
+                nameMinLength: 'Name must be at least 2 characters',
+                phoneRequired: 'Phone number is required',
+                phoneInvalid: 'Please enter a valid phone number',
+                agentRequired: 'Agent name is required',
+                agentMinLength: 'Agent name must be at least 2 characters',
+                typeYourAnswer: 'Type your answer here...',
+                language: 'Language',
+                darkMode: 'Dark Mode'
+            },
+            ja: {
+                title: '📝 ランダムクイズ',
+                description: 'ランダムに選ばれた30問の問題に20分以内に答えてください。',
+                fullName: '氏名',
+                phone: '電話番号',
+                agent: 'エージェント名',
+                startQuiz: 'クイズを開始',
+                quizInProgress: 'クイズ進行中',
+                questionOf: '問題',
+                of: '/',
+                multipleChoice: '選択問題',
+                essay: '記述問題',
+                previous: '← 前へ',
+                next: '次へ →',
+                submitQuiz: 'クイズを提出',
+                quizComplete: 'クイズ完了！',
+                yourScore: 'あなたのスコア',
+                retakeQuiz: 'もう一度受ける',
+                excellent: '🎉 素晴らしい！よくできました！',
+                good: '👍 よくできました！練習を続けてください！',
+                niceTry: '📚 よく頑張りました！復習してもう一度挑戦しましょう。',
+                keepLearning: '💪 学習を続けましょう！次はもっとよくできます。',
+                required: '*',
+                nameRequired: '名前は必須です',
+                nameMinLength: '名前は2文字以上である必要があります',
+                phoneRequired: '電話番号は必須です',
+                phoneInvalid: '有効な電話番号を入力してください',
+                agentRequired: 'エージェント名は必須です',
+                agentMinLength: 'エージェント名は2文字以上である必要があります',
+                typeYourAnswer: 'ここに答えを入力してください...',
+                language: '言語',
+                darkMode: 'ダークモード'
+            }
+        };
+        return translations[this.language][key] || key;
+    }
+
+    toggleDarkMode() {
+        this.darkMode = !this.darkMode;
+        localStorage.setItem('quizDarkMode', this.darkMode);
+        this.applyTheme();
+    }
+
+    applyTheme() {
+        if (this.darkMode) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
     }
 
     render() {
@@ -42,30 +134,43 @@ class QuizApp {
     renderLandingPage() {
         return `
             <div class="container landing-page">
-                <h1>📝 Random Quiz Questions</h1>
-                <p>Test your knowledge with our randomized quiz. You'll have 20 minutes to answer 30 questions.</p>
+                <div class="settings-bar">
+                    <div class="language-select-wrapper">
+                        <label for="languageSelect">🌐</label>
+                        <select class="settings-select" id="languageSelect">
+                            <option value="en" ${this.language === 'en' ? 'selected' : ''}>English</option>
+                            <option value="ja" ${this.language === 'ja' ? 'selected' : ''}>日本語</option>
+                        </select>
+                    </div>
+                    <button class="settings-btn dark-mode-btn" id="darkModeToggle">
+                        ${this.darkMode ? '☀️' : '🌙'} ${this.getTranslation('darkMode')}
+                    </button>
+                </div>
+                
+                <h1>${this.getTranslation('title')}</h1>
+                <p>${this.getTranslation('description')}</p>
                 
                 <div class="form-container">
                     <form id="userInfoForm">
                         <div class="form-group">
-                            <label for="name">Full Name *</label>
+                            <label for="name">${this.getTranslation('fullName')} ${this.getTranslation('required')}</label>
                             <input type="text" id="name" name="name" required>
                             <div class="error-message"></div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="phone">Phone Number *</label>
+                            <label for="phone">${this.getTranslation('phone')} ${this.getTranslation('required')}</label>
                             <input type="tel" id="phone" name="phone" required>
                             <div class="error-message"></div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="agent">Agent Name *</label>
+                            <label for="agent">${this.getTranslation('agent')} ${this.getTranslation('required')}</label>
                             <input type="text" id="agent" name="agent" required>
                             <div class="error-message"></div>
                         </div>
                         
-                        <button type="submit" class="start-quiz-btn">Start Quiz</button>
+                        <button type="submit" class="start-quiz-btn">${this.getTranslation('startQuiz')}</button>
                     </form>
                 </div>
             </div>
@@ -81,12 +186,16 @@ class QuizApp {
         if (this.timeRemaining < 300) timerClass = 'danger'; // Less than 5 minutes
         else if (this.timeRemaining < 600) timerClass = 'warning'; // Less than 10 minutes
 
+        // Get localized question text and options
+        const questionText = typeof question.text === 'object' ? question.text[this.language] : question.text;
+        const questionOptions = typeof question.options === 'object' && question.options[this.language] ? question.options[this.language] : question.options;
+
         let questionContent = '';
 
         if (question.type === 'mcq') {
             questionContent = `
                 <div class="options">
-                    ${question.options.map((option, index) => `
+                    ${questionOptions.map((option, index) => `
                         <label class="option">
                             <input type="radio" name="answer" value="${index}" 
                                 ${this.userAnswers[this.currentQuestionIndex] === index ? 'checked' : ''}>
@@ -97,31 +206,31 @@ class QuizApp {
             `;
         } else {
             questionContent = `
-                <textarea class="essay-input" id="essayAnswer" placeholder="Type your answer here...">${this.userAnswers[this.currentQuestionIndex] || ''}</textarea>
+                <textarea class="essay-input" id="essayAnswer" placeholder="${this.getTranslation('typeYourAnswer')}">${this.userAnswers[this.currentQuestionIndex] || ''}</textarea>
             `;
         }
 
         return `
             <div class="container quiz-page">
                 <div class="quiz-header">
-                    <div class="quiz-title">Quiz in Progress</div>
+                    <div class="quiz-title">${this.getTranslation('quizInProgress')}</div>
                     <div class="timer ${timerClass}">${timeDisplay}</div>
                 </div>
                 
-                <div class="question-counter">Question ${this.currentQuestionIndex + 1} of ${this.quizQuestions.length}</div>
+                <div class="question-counter">${this.getTranslation('questionOf')} ${this.currentQuestionIndex + 1} ${this.getTranslation('of')} ${this.quizQuestions.length}</div>
                 
                 <div class="question-container">
-                    <span class="question-type">${question.type === 'mcq' ? 'Multiple Choice' : 'Essay'}</span>
-                    <div class="question-text">${question.text}</div>
+                    <span class="question-type">${question.type === 'mcq' ? this.getTranslation('multipleChoice') : this.getTranslation('essay')}</span>
+                    <div class="question-text">${questionText}</div>
                     ${questionContent}
                 </div>
                 
                 <div class="quiz-navigation">
-                    <button class="nav-button prev-btn" ${this.currentQuestionIndex === 0 ? 'disabled' : ''}>← Previous</button>
+                    <button class="nav-button prev-btn" ${this.currentQuestionIndex === 0 ? 'disabled' : ''}>${this.getTranslation('previous')}</button>
                     ${!isLastQuestion ? `
-                        <button class="nav-button next-btn">Next →</button>
+                        <button class="nav-button next-btn">${this.getTranslation('next')}</button>
                     ` : `
-                        <button class="nav-button submit-button submit-btn">Submit Quiz</button>
+                        <button class="nav-button submit-button submit-btn">${this.getTranslation('submitQuiz')}</button>
                     `}
                 </div>
             </div>
@@ -134,25 +243,25 @@ class QuizApp {
 
         let message = '';
         if (percentage >= 80) {
-            message = '🎉 Excellent! You did great!';
+            message = this.getTranslation('excellent');
         } else if (percentage >= 60) {
-            message = '👍 Good job! Keep practicing!';
+            message = this.getTranslation('good');
         } else if (percentage >= 40) {
-            message = '📚 Nice try! Review the material and try again.';
+            message = this.getTranslation('niceTry');
         } else {
-            message = '💪 Keep learning! You\'ll do better next time.';
+            message = this.getTranslation('keepLearning');
         }
 
         return `
             <div class="container results-page">
-                <h1>Quiz Complete!</h1>
+                <h1>${this.getTranslation('quizComplete')}</h1>
                 
                 <div class="score-display">${this.totalScore}/${maxScore}</div>
-                <div class="score-label">Your Score</div>
+                <div class="score-label">${this.getTranslation('yourScore')}</div>
                 <div class="score-message">${message}</div>
                 
                 <div class="results-actions">
-                    <button class="retake-btn">Retake Quiz</button>
+                    <button class="retake-btn">${this.getTranslation('retakeQuiz')}</button>
                 </div>
             </div>
         `;
@@ -162,6 +271,22 @@ class QuizApp {
         if (this.currentPage === 'landing') {
             const form = document.getElementById('userInfoForm');
             form.addEventListener('submit', (e) => this.handleStartQuiz(e));
+
+            // Language select dropdown
+            const languageSelect = document.getElementById('languageSelect');
+            if (languageSelect) {
+                languageSelect.addEventListener('change', (e) => {
+                    this.language = e.target.value;
+                    localStorage.setItem('quizLanguage', this.language);
+                    this.render();
+                });
+            }
+
+            // Dark mode toggle
+            const darkModeBtn = document.getElementById('darkModeToggle');
+            if (darkModeBtn) {
+                darkModeBtn.addEventListener('click', () => this.toggleDarkMode());
+            }
         } else if (this.currentPage === 'quiz') {
             const prevBtn = document.querySelector('.prev-btn');
             const nextBtn = document.querySelector('.next-btn');
@@ -209,26 +334,26 @@ class QuizApp {
         let isValid = true;
 
         if (!name) {
-            this.showFieldError(nameInput, 'Name is required');
+            this.showFieldError(nameInput, this.getTranslation('nameRequired'));
             isValid = false;
         } else if (name.length < 2) {
-            this.showFieldError(nameInput, 'Name must be at least 2 characters');
+            this.showFieldError(nameInput, this.getTranslation('nameMinLength'));
             isValid = false;
         }
 
         if (!phone) {
-            this.showFieldError(phoneInput, 'Phone number is required');
+            this.showFieldError(phoneInput, this.getTranslation('phoneRequired'));
             isValid = false;
         } else if (!this.isValidPhone(phone)) {
-            this.showFieldError(phoneInput, 'Please enter a valid phone number');
+            this.showFieldError(phoneInput, this.getTranslation('phoneInvalid'));
             isValid = false;
         }
 
         if (!agent) {
-            this.showFieldError(agentInput, 'Agent name is required');
+            this.showFieldError(agentInput, this.getTranslation('agentRequired'));
             isValid = false;
         } else if (agent.length < 2) {
-            this.showFieldError(agentInput, 'Agent name must be at least 2 characters');
+            this.showFieldError(agentInput, this.getTranslation('agentMinLength'));
             isValid = false;
         }
 
