@@ -118,7 +118,7 @@ function saveToSheet(payload) {
 
 /**
  * Prepare row data for Google Sheet
- * Row format: Timestamp | Name | Phone | Agent Name | Q1 Answer | Q2 Answer | ... | Q30 Answer | Total Score
+ * Row format: Timestamp | Name | Phone | Agent Name | Timezone Offset | Timezone Name | Q1 Answer | Q2 Answer | ... | Q30 Answer | Total Score | Submitted At
  */
 function prepareRowData(payload) {
     const row = [];
@@ -130,6 +130,10 @@ function prepareRowData(payload) {
     row.push(payload.name);
     row.push(payload.phone);
     row.push(payload.agentName);
+
+    // Add timezone information
+    row.push(payload.timezoneOffset || '');
+    row.push(payload.timezoneName || '');
 
     // Add answers for all 30 questions
     for (let i = 0; i < 30; i++) {
@@ -144,6 +148,9 @@ function prepareRowData(payload) {
 
     // Add total score
     row.push(payload.totalScore);
+
+    // Add submission timestamp
+    row.push(payload.submittedAt || new Date().toISOString());
 
     return row;
 }
@@ -168,6 +175,8 @@ function initializeSheet() {
         headers.push('Name');
         headers.push('Phone');
         headers.push('Agent Name');
+        headers.push('Timezone Offset');
+        headers.push('Timezone Name');
 
         // Add headers for 30 questions
         for (let i = 1; i <= 30; i++) {
@@ -175,6 +184,7 @@ function initializeSheet() {
         }
 
         headers.push('Total Score');
+        headers.push('Submitted At');
 
         // Set headers in first row
         sheet.getRange(1, 1, 1, headers.length).setValues([headers]);

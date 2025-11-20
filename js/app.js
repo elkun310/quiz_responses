@@ -17,7 +17,7 @@ class QuizApp {
 
         // Initialize API client
         this.api = new QuizAPI({
-            apiEndpoint: 'https://script.google.com/macros/s/AKfycbytWIQdwNmI6t7ELybbvUEZ1hGXPXLkdOaWxyasp5-UgzhmX61aIceX9n-08JZNwJDs/exec'
+            apiEndpoint: 'https://script.google.com/macros/s/AKfycbw_8_h1ckMQiZGf4Y0xckI--XQqpDKP0Zm-2PBkX9xYcWMgnLkkLQN7a0mOhHyqwrJC/exec'
         });
 
         this.init();

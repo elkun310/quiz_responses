@@ -40,12 +40,34 @@ class QuizAPI {
     }
 
     /**
+     * Get timezone information
+     * @returns {Object} Timezone offset and name
+     */
+    getTimezoneInfo() {
+        const now = new Date();
+        const timezoneOffset = -now.getTimezoneOffset(); // Convert to minutes, then negate
+        const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
+        const offsetMinutes = Math.abs(timezoneOffset) % 60;
+        const sign = timezoneOffset >= 0 ? '+' : '-';
+        const timezoneOffsetString = `UTC${sign}${offsetHours.toString().padStart(2, '0')}:${offsetMinutes.toString().padStart(2, '0')}`;
+
+        // Get timezone name using Intl API
+        const timezoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        return {
+            offset: timezoneOffsetString,
+            name: timezoneName
+        };
+    }
+
+    /**
      * Format quiz data for backend submission
      * @param {Object} quizData - Raw quiz data
      * @returns {Object} Formatted data
      */
     formatQuizData(quizData) {
         const { userInfo, answers, score, totalQuestions } = quizData;
+        const timezoneInfo = this.getTimezoneInfo();
 
         return {
             timestamp: userInfo.timestamp,
@@ -55,7 +77,9 @@ class QuizAPI {
             answers: answers,
             totalScore: score,
             totalQuestions: totalQuestions,
-            submittedAt: new Date().toISOString()
+            submittedAt: new Date().toISOString(),
+            timezoneOffset: timezoneInfo.offset,
+            timezoneName: timezoneInfo.name
         };
     }
 
