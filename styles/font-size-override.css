@@ -1,0 +1,107 @@
+/* Font Size Overrides - Beautiful, balanced typography */
+
+/* Base font size for better readability */
+body {
+    font-size: 16px !important;
+}
+
+/* Form Labels - Professional size */
+label {
+    font-size: 15px !important;
+}
+
+/* Input Fields - Standard readable size */
+input[type="text"],
+input[type="tel"],
+textarea,
+.essay-input {
+    font-size: 16px !important;
+}
+
+/* Select Dropdown */
+select,
+.settings-select {
+    font-size: 15px !important;
+}
+
+/* Buttons - Clear and readable */
+button {
+    font-size: 16px !important;
+    padding: 12px 24px !important;
+}
+
+/* Landing Page - Elegant hierarchy */
+.landing-page h1 {
+    font-size: 32px !important;
+}
+
+.landing-page p {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+}
+
+/* Quiz Page - Clear and focused */
+.quiz-title {
+    font-size: 22px !important;
+}
+
+.timer {
+    font-size: 26px !important;
+}
+
+.question-counter {
+    font-size: 15px !important;
+}
+
+.question-text {
+    font-size: 19px !important;
+    line-height: 1.5 !important;
+}
+
+.question-type {
+    font-size: 13px !important;
+}
+
+/* MCQ Options - Easy to read */
+.option-text {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+}
+
+.option {
+    font-size: 16px !important;
+}
+
+/* Results Page - Impactful yet balanced */
+.results-page h1 {
+    font-size: 32px !important;
+}
+
+.score-display {
+    font-size: 64px !important;
+}
+
+.score-label {
+    font-size: 20px !important;
+}
+
+.score-message {
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+}
+
+/* Settings - Subtle and clean */
+.settings-btn {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+}
+
+/* Error Messages */
+.error-message {
+    font-size: 14px !important;
+}
+
+/* Navigation Buttons */
+.nav-button {
+    font-size: 15px !important;
+}

@@ -1,0 +1,59 @@
+/* Additional Settings Styles for Language Selector */
+
+.language-select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.language-select-wrapper label {
+    font-size: 16px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.settings-select {
+    background: rgba(255, 255, 255, 0.2);
+    color: #333;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.settings-select:hover {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: #667eea;
+}
+
+.settings-select:focus {
+    outline: none;
+    border-color: #667eea;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Dark mode styles for settings */
+body.dark-mode .settings-select {
+    background: rgba(26, 26, 46, 0.5);
+    color: #e0e0e0;
+    border-color: #4a5568;
+}
+
+body.dark-mode .settings-select:hover {
+    background: rgba(26, 26, 46, 0.7);
+    border-color: #667eea;
+}
+
+body.dark-mode .settings-btn {
+    background: rgba(26, 26, 46, 0.5);
+    color: #e0e0e0;
+    border-color: #4a5568;
+}
+
+body.dark-mode .settings-btn:hover {
+    background: rgba(26, 26, 46, 0.7);
+    border-color: #667eea;
+}

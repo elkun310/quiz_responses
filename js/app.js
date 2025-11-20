@@ -212,6 +212,19 @@ class QuizApp {
 
         return `
             <div class="container quiz-page">
+                <div class="settings-bar">
+                    <div class="language-select-wrapper">
+                        <label for="quizLanguageSelect">🌐</label>
+                        <select class="settings-select" id="quizLanguageSelect">
+                            <option value="en" ${this.language === 'en' ? 'selected' : ''}>English</option>
+                            <option value="ja" ${this.language === 'ja' ? 'selected' : ''}>日本語</option>
+                        </select>
+                    </div>
+                    <button class="settings-btn dark-mode-btn" id="quizDarkModeToggle">
+                        ${this.darkMode ? '☀️' : '🌙'} ${this.getTranslation('darkMode')}
+                    </button>
+                </div>
+                
                 <div class="quiz-header">
                     <div class="quiz-title">${this.getTranslation('quizInProgress')}</div>
                     <div class="timer ${timerClass}">${timeDisplay}</div>
@@ -295,6 +308,25 @@ class QuizApp {
             if (prevBtn) prevBtn.addEventListener('click', () => this.previousQuestion());
             if (nextBtn) nextBtn.addEventListener('click', () => this.nextQuestion());
             if (submitBtn) submitBtn.addEventListener('click', () => this.submitQuiz());
+
+            // Language select dropdown on quiz page
+            const quizLanguageSelect = document.getElementById('quizLanguageSelect');
+            if (quizLanguageSelect) {
+                quizLanguageSelect.addEventListener('change', (e) => {
+                    this.language = e.target.value;
+                    localStorage.setItem('quizLanguage', this.language);
+                    this.render();
+                });
+            }
+
+            // Dark mode toggle on quiz page
+            const quizDarkModeBtn = document.getElementById('quizDarkModeToggle');
+            if (quizDarkModeBtn) {
+                quizDarkModeBtn.addEventListener('click', () => {
+                    this.toggleDarkMode();
+                    this.render();
+                });
+            }
 
             // Save answer on change
             const radioButtons = document.querySelectorAll('input[type="radio"]');
